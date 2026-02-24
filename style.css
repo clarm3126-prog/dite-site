@@ -54,6 +54,25 @@ nav a:hover {
     color: #02b04e;
 }
 
+/* Popular Products Section */
+#popular-products-section {
+    padding: 2rem;
+    text-align: center;
+}
+
+#popular-products-section h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 0 2rem;
+}
+
 /* Main Content */
 main {
     padding: 2rem;
@@ -74,7 +93,7 @@ footer {
 }
 
 /* Card Styles */
-.card {
+.card, .popular-product-card {
     background-color: white;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -82,23 +101,50 @@ footer {
     margin-bottom: 1rem;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.card:hover {
+.card:hover, .popular-product-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
 }
 
-.card h3 {
+.card h3, .popular-product-card h3 {
     margin-top: 0;
     color: #03c75a;
     font-size: 1.5rem;
 }
 
-.card img {
+.card img, .popular-product-card img {
     width: 100%;
     height: 200px;
     object-fit: cover;
     border-radius: 10px;
     margin-bottom: 1rem;
+}
+
+.popular-product-card .price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #e53935;
+    margin: 0.5rem 0;
+}
+
+.popular-product-card .buy-button {
+    background-color: #03c75a;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    margin-top: auto;
+}
+
+.popular-product-card .buy-button:hover {
+    background-color: #02b04e;
 }
