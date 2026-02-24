@@ -1,10 +1,11 @@
-import { renderCategories, renderProducts, renderReviews } from './views.js';
+import { renderCategories, renderProducts, renderReviews, renderPartnershipForm } from './views.js';
 
 // --- Router and Search ---
 const routes = {
     '#categories': renderCategories,
     '#products': renderProducts,
-    '#reviews': renderReviews
+    '#reviews': renderReviews,
+    '#partnership': renderPartnershipForm
 };
 
 function router() {
@@ -17,7 +18,7 @@ function router() {
         popularProductsSection.style.display = 'block';
         appRoot.style.display = 'none';
     } else {
-        popularProductsSection.style.display = 'none';
+        popularProducts-section.style.display = 'none';
         appRoot.style.display = path === '#products' ? 'grid' : 'block';
     }
 
