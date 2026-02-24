@@ -1,48 +1,54 @@
-# Blueprint: Diet & Supplement Ranking Website
 
-## 1. Overview
+# Naver Brand Connect Product Showcase
 
-This project is an e-commerce website designed to showcase and sell diet supplements and healthy foods. The main feature is a dynamic, ranked list of best-selling products, providing a clear and intuitive shopping experience for users focused on health and wellness.
+## Overview
 
-## 2. Design & Style
+A web application to showcase Naver Brand Connect products. Users can browse product categories, view products within those categories, and read reviews for each product.
 
-The visual design will be modern, clean, and energetic, aimed at making a great first impression and building user trust.
+## Project Outline
 
-*   **Layout:** A responsive, mobile-first grid layout that adapts seamlessly to all screen sizes. Key content will be organized using CSS Grid and Flexbox for optimal alignment and spacing.
-*   **Color Palette:**
-    *   **Primary:** A vibrant, healthy green (`#4CAF50`) for calls-to-action and highlights.
-    *   **Secondary:** A warm, energetic orange (`#FF9800`) for accents and ranking badges.
-    *   **Background:** A soft, off-white (`#F9F9F9`) with a subtle noise texture to add a premium feel.
-    *   **Text:** Dark gray (`#333333`) for high readability.
-*   **Typography:**
-    *   **Headings:** A bold, modern sans-serif font like **Montserrat** for impactful titles.
-    *   **Body:** A clean, highly readable sans-serif font like **Roboto** for descriptions and general text.
-*   **Components & Effects:**
-    *   **Product Cards:** "Lifted" cards with soft, deep drop shadows to create a sense of depth.
-    *   **Buttons & Interactive Elements:** Will feature a subtle "glow" effect on hover using color and shadow transitions.
-    *   **Iconography:** Modern, intuitive icons for navigation and actions.
+### Design and Styling
 
-## 3. Features & Implementation
+*   **Layout:** A modern, responsive single-page application layout with a visually balanced and clean spacing.
+*   **Colors:** A vibrant and energetic color palette inspired by Naver's branding.
+*   **Typography:** Expressive and readable fonts from Google Fonts.
+*   **Components:**
+    *   **Header:** Contains the application title, navigation, and a search bar.
+    *   **Navigation:** Links to switch between Categories, Products, and Reviews views.
+    *   **Cards:** Custom-styled cards with hover effects for displaying categories, products, and reviews.
+    *   **Footer:** Contains copyright information.
+*   **Effects:** Subtle animations and transitions for a more interactive experience.
 
-The application will be built using modern, framework-less web standards for high performance and maintainability.
+### Features
 
-*   **Ranked Product List:** The homepage will feature a ranked list of products (e.g., "Top Sellers"). Each product card will display its rank prominently.
-*   **Web Components:** A custom `<product-card>` element will be created using JavaScript to encapsulate the structure, style, and behavior of each product display. This promotes reusability and a clean codebase.
-*   **Dynamic Rendering:** Product data (name, image, description, rank) will be stored in a JavaScript array. The application will dynamically generate the product list from this data, making it easy to update.
-*   **Responsive Design:** Using `@container` queries and modern CSS, the layout will adjust based on the available space, ensuring a perfect experience on mobile, tablet, and desktop.
+*   **Product Categories:** Display a list of product categories.
+*   **Product Listing:** Display a list of products for a selected category.
+*   **Product Reviews:** Display reviews for a selected product.
+*   **Search:** A search bar to filter products by name.
+*   **Web Components:** Use Web Components to create reusable UI elements for categories, products, and reviews.
+*   **ES Modules:** Organize JavaScript code into modules for better maintainability.
 
-## 4. Current Task: Initial Build
+## Current Plan
 
-This is the plan for the initial construction of the website.
+### Step 1: Enhance the Design and Add Search Functionality
 
-1.  **`blueprint.md` Creation:** Document the project's vision, design, and technical plan. (Complete)
-2.  **`index.html` Structure:**
-    *   Set up the main HTML document with a header, a main content area for the product grid, and a footer.
-    *   Link the CSS and JavaScript files.
-3.  **`style.css` Styling:**
-    *   Implement the core layout, background, and typography.
-    *   Style the product grid and create the base styles for the product cards, including shadows and responsive adjustments.
-4.  **`main.js` Logic:**
-    *   Define the `ProductCard` custom element.
-    *   Create an array of sample product data (name, image URL, description, rank).
-    *   Write the script to iterate through the data and append `<product-card>` elements to the DOM.
+*   **Update CSS (`style.css`):**
+    *   Introduce a new color palette, modern typography, and improved layout.
+    *   Add hover effects and transitions to interactive elements.
+    *   Enhance the card design for a cleaner look.
+*   **Update HTML (`index.html`):**
+    *   Add a search bar to the header.
+    *   Link Google Fonts.
+*   **Update JavaScript (`views.js`):**
+    *   Add placeholder images to the mock data.
+    *   Update the `product-card` web component to display images.
+*   **Update JavaScript (`main.js`):**
+    *   Implement the client-side search functionality.
+
+### Step 2: Integrate with Firebase Firestore
+
+*   Initialize Firebase in the project.
+*   Set up a Firestore database.
+*   Migrate the mock data to Firestore.
+*   Update the application to fetch data from Firestore instead of the local mock data.
+

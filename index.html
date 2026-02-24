@@ -3,61 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diet & Wellness - Top Products</title>
+    <title>Naver Brand Connect Showcase</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <header>
-        <div class="header-content">
-            <div class="logo">
-                <h1><a href="/">Diet & Wellness</a></h1>
-            </div>
-            <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Search for products...">
-            </div>
-            <div class="cart-icon-wrapper">
-                <svg id="cart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32px" height="32px">
-                    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
-                </svg>
-                <span id="cart-item-count">0</span>
-            </div>
+        <h1>Naver Brand Connect</h1>
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search for products...">
         </div>
     </header>
-
-    <main>
-        <section id="product-grid-section">
-            <h2 class="section-title">Top Rated Products</h2>
-            <div id="product-grid" class="product-grid-container">
-                <!-- Product cards will be dynamically inserted here -->
-            </div>
-        </section>
-
-        <section id="product-detail-section" class="hidden">
-            <!-- Product detail content will be dynamically inserted here -->
-        </section>
-    </main>
-
+    <nav>
+        <a href="#categories" id="nav-categories">Categories</a>
+        <a href="#products" id="nav-products">Products</a>
+        <a href="#reviews" id="nav-reviews">Reviews</a>
+        <a href="https://brandconnect.naver.com/924294397179680/affiliate/products-link?persist=true" target="_blank" id="nav-affiliate">Shop on Naver</a>
+    </nav>
+    <main id="app-root"></main>
     <footer>
-        <p>&copy; 2024 Diet & Wellness. All rights reserved.</p>
+        <p>&copy; 2024 Naver Brand Connect</p>
     </footer>
-
-    <!-- Shopping Cart Modal -->
-    <div id="cart-modal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <button id="close-cart-btn" class="modal-close-btn">&times;</button>
-            <h2>Your Shopping Cart</h2>
-            <div id="cart-items-container">
-                <!-- Cart items will be dynamically inserted here -->
-            </div>
-            <div class="cart-summary">
-                <p>Total: <span id="cart-total-price">$0.00</span></p>
-                <button class="checkout-btn">Proceed to Checkout</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="main.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>
