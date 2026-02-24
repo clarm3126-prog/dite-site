@@ -3,44 +3,48 @@
 
 ## Overview
 
-A web application to showcase Naver Brand Connect products. Users can browse product categories, view products within those categories, and read reviews for each product. The site also features a curated list of popular products.
+A web application to showcase Naver Brand Connect products. Users can browse product categories, view products, read and write reviews, and discover popular items. 
 
 ## Project Outline
 
 ### Design and Styling
 
-*   **Layout:** A modern, responsive single-page application layout with a visually balanced and clean spacing.
+*   **Layout:** A modern, responsive single-page application layout.
 *   **Colors:** A vibrant and energetic color palette inspired by Naver's branding.
 *   **Typography:** Expressive and readable fonts from Google Fonts.
 *   **Components:**
-    *   **Header:** Contains the application title, navigation, and a search bar.
-    *   **Navigation:** Links to switch between Categories, Products, and Reviews views, and an external link to shop on Naver.
-    *   **Popular Products Section:** A dedicated section on the main page to highlight best-selling or featured products.
-    *   **Cards:** Custom-styled cards with hover effects for displaying categories, products, and reviews.
+    *   **Header & Navigation:** Clean header with navigation, search, and external links.
+    *   **Popular Products Section:** A dedicated section on the main page for featured products.
+    *   **Cards:** Custom-styled cards for categories, products, and reviews.
+    *   **Review System:** A user-friendly interface for reading and submitting product reviews, including a rating system.
     *   **Footer:** Contains copyright information.
-*   **Effects:** Subtle animations and transitions for a more interactive experience.
+*   **Effects:** Subtle animations and transitions for an interactive experience.
 
 ### Features
 
-*   **Product Categories:** Display a list of product categories.
-*   **Product Listing:** Display a list of products for a selected category.
-*   **Product Reviews:** Display reviews for a selected product.
-*   **Search:** A search bar to filter products by name.
-*   **Popular Products:** Showcase a list of popular products fetched from a data source.
-*   **Web Components:** Use Web Components to create reusable UI elements for categories, products, and reviews.
-*   **ES Modules:** Organize JavaScript code into modules for better maintainability.
-*   **Firebase Integration:** Use Firebase Firestore to store and retrieve product data.
+*   **Product Categories & Listings:** Browse products by category.
+*   **Search:** Filter products by name.
+*   **Popular Products Showcase:** A curated list of popular items.
+*   **User Reviews and Ratings:** Users can read and submit reviews and ratings for each product. This builds trust and provides valuable user-generated content.
+*   **Web Components:** Reusable UI elements for a modular and maintainable codebase.
+*   **ES Modules:** Modern JavaScript module system.
+*   **Firebase Integration:** Firestore for storing product data and user reviews.
 
 ## Current Plan
 
-### Add "Popular Products" Section
+### Implement User Reviews and Ratings Feature
 
-*   **Goal:** Create a new section on the homepage to display a curated list of best-selling products.
-*   **Note:** Automatic analysis of the affiliate link is not possible. The section will be built with placeholder data first. The user will provide the actual product data (names, image URLs, prices, product links) to be integrated later.
+*   **Goal:** Allow users to submit reviews and ratings for products and view existing reviews.
+*   **Reasoning:** This is a crucial feature for e-commerce sites as it builds social proof and helps users make informed decisions, which can significantly increase visitor engagement and trust.
 
 *   **Steps:**
-    1.  **Update HTML (`index.html`):** Add a new `<section>` for "Popular Products" below the navigation bar, containing a grid for product cards.
-    2.  **Update CSS (`style.css`):** Add styles for the new section and the product cards to ensure a visually appealing and responsive layout.
-    3.  **Update JavaScript (`main.js`):** Create a new web component `popular-product-card` to render the placeholder products. This component will be designed to easily accept real data later.
-    4.  **Commit to Git:** Save the changes with a clear commit message and push them to the GitHub repository.
+    1.  **Update `blueprint.md`:** Document the plan for the new review feature.
+    2.  **Update `views.js`:**
+        *   Create a `product-review` web component to display an individual review, including the user's name, rating, and comments.
+        *   Create a `review-form` web component that provides a form for users to submit a new review and a star rating.
+        *   Add mock review data to be used for initial rendering.
+        *   Modify the `renderReviews` function to display both the list of reviews and the submission form.
+    3.  **Update `main.js`:** Adjust the routing logic to correctly handle the display of the reviews section, ensuring it appears when the "Reviews" navigation link is clicked.
+    4.  **Update `style.css`:** Add new styles for the review list, individual reviews, the rating stars, and the review submission form to ensure they are visually appealing and consistent with the site's design.
+    5.  **Commit and Push:** Save the changes to the Git repository.
 

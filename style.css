@@ -76,6 +76,9 @@ nav a:hover {
 /* Main Content */
 main {
     padding: 2rem;
+}
+
+#app-root[style*="display: grid"] {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
@@ -101,9 +104,6 @@ footer {
     margin-bottom: 1rem;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 .card:hover, .popular-product-card:hover {
@@ -129,7 +129,6 @@ footer {
     font-size: 1.2rem;
     font-weight: bold;
     color: #e53935;
-    margin: 0.5rem 0;
 }
 
 .popular-product-card .buy-button {
@@ -142,9 +141,29 @@ footer {
     text-decoration: none;
     text-align: center;
     transition: background-color 0.3s ease;
-    margin-top: auto;
+    margin-top: 1rem;
 }
 
 .popular-product-card .buy-button:hover {
     background-color: #02b04e;
+}
+
+
+/* --- Review Section Styles -- */
+.reviews-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+product-review {
+    display: block;
+    margin-bottom: 1.5rem;
+}
+
+review-form {
+    display: block;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 2rem;
+    margin-top: 2rem;
 }
