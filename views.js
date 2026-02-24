@@ -1,7 +1,7 @@
 import { db } from './firebase.js';
-import { collection, getDocs, query, where, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// --- Web Components for Categories and Products (Existing Code) ---
+// --- Web Components for Categories and Products ---
 
 class ProductCategory extends HTMLElement {
     constructor() {
@@ -83,91 +83,8 @@ class ProductCard extends HTMLElement {
     }
 }
 
-class ProductReview extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-    }
-
-    connectedCallback() {
-        const author = this.getAttribute('author');
-        const comment = this.getAttribute('comment');
-        const rating = parseInt(this.getAttribute('rating') || 0);
-        const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
-        this.shadowRoot.innerHTML = `
-            <style>
-                :host { display: block; margin-bottom: 1rem; }
-                .review-card { background-color: #fff; border-radius: 10px; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-                .author { font-weight: bold; margin-bottom: 0.5rem; }
-                .rating { color: #ffc107; margin-bottom: 0.75rem; }
-                .comment { font-size: 1rem; line-height: 1.5; }
-            </style>
-            <div class="review-card">
-                <div class="author">${author}</div>
-                <div class="rating">${stars}</div>
-                <div class="comment">${comment}</div>
-            </div>
-        `;
-    }
-}
-
-class ReviewForm extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-        this.rating = 0;
-    }
-
-    connectedCallback() {
-        this.shadowRoot.innerHTML = `
-            <style>
-                .review-form-container { background-color: #f0f2f5; padding: 2rem; border-radius: 10px; margin-top: 2rem; }
-                h3 { color: #333; }
-                .star-rating { font-size: 2rem; cursor: pointer; }
-                .star-rating span:hover { color: #ffc107; }
-                textarea { width: 100%; padding: 0.5rem; margin: 1rem 0; border-radius: 5px; border: 1px solid #ccc; min-height: 80px; }
-                button { background-color: #03c75a; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; }
-                button:hover { background-color: #02b04e; }
-            </style>
-            <div class="review-form-container">
-                <h3>Write a Review</h3>
-                <div class="star-rating">${[...Array(5)].map((_, i) => `<span data-value="${i + 1}">☆</span>`).join('')}</div>
-                <textarea id="comment" placeholder="Share your thoughts..."></textarea>
-                <button id="submit-review">Submit Review</button>
-            </div>
-        `;
-        this.shadowRoot.querySelectorAll('.star-rating span').forEach(star => star.addEventListener('click', (e) => this.setRating(e.target.dataset.value)));
-        this.shadowRoot.getElementById('submit-review').addEventListener('click', () => this.submitReview());
-    }
-
-    setRating(value) {
-        this.rating = value;
-        this.shadowRoot.querySelectorAll('.star-rating span').forEach((star, index) => {
-            star.textContent = index < value ? '★' : '☆';
-            star.style.color = index < value ? '#ffc107' : '#ccc';
-        });
-    }
-
-    async submitReview() {
-        const productId = new URLSearchParams(window.location.hash.split('?')[1])?.get('productId');
-        const comment = this.shadowRoot.getElementById('comment').value;
-        if (!productId || !comment || this.rating === 0) {
-            alert('Please select a rating and write a comment.');
-            return;
-        }
-        try {
-            await addDoc(collection(db, "reviews"), { productId: parseInt(productId), author: "Anonymous User", comment: comment, rating: this.rating, createdAt: serverTimestamp() });
-            renderReviews();
-        } catch (error) {
-            console.error("Error adding document: ", error);
-        }
-    }
-}
-
 customElements.define('product-category', ProductCategory);
 customElements.define('product-card', ProductCard);
-customElements.define('product-review', ProductReview);
-customElements.define('review-form', ReviewForm);
 
 const appRoot = document.getElementById('app-root');
 
@@ -204,30 +121,70 @@ export async function renderProducts(searchTerm = '') {
     });
 }
 
-export async function renderReviews() {
+export function renderReviews() {
     const productId = new URLSearchParams(window.location.hash.split('?')[1])?.get('productId');
-    appRoot.innerHTML = '<div class="reviews-container"></div>';
-    const reviewsContainer = appRoot.querySelector('.reviews-container');
+    appRoot.innerHTML = ''; // Clear previous content
+
     if (!productId) {
-        reviewsContainer.innerHTML = '<p>Select a product to see its reviews.</p>';
+        appRoot.innerHTML = '<p style="text-align: center; margin-top: 2rem;">Product not found. Please select a product to see the comments.</p>';
         return;
     }
-    const reviewQuery = query(collection(db, "reviews"), where("productId", "==", productId));
-    const querySnapshot = await getDocs(reviewQuery);
-    if (querySnapshot.empty) {
-        reviewsContainer.innerHTML += '<p>Be the first to review this product!</p>';
-    } else {
-        querySnapshot.forEach((doc) => {
-            const review = doc.data();
-            const el = document.createElement('product-review');
-            el.setAttribute('author', review.author);
-            el.setAttribute('comment', review.comment);
-            el.setAttribute('rating', review.rating);
-            reviewsContainer.appendChild(el);
-        });
+
+    // Add a title for the comments section
+    const title = document.createElement('h2');
+    title.textContent = 'Comments & Reviews';
+    title.style.textAlign = 'center';
+    title.style.marginTop = '2rem';
+    title.style.fontSize = '2.5rem';
+    title.style.color = '#333';
+
+    const disqusContainer = document.createElement('div');
+    disqusContainer.id = 'disqus_thread';
+    disqusContainer.style.maxWidth = '800px';
+    disqusContainer.style.margin = '2rem auto';
+    disqusContainer.style.padding = '0 1rem';
+
+    const disqusScript = document.createElement('script');
+    const disqusConfig = `
+        var disqus_config = function () {
+            this.page.url = window.location.href;
+            this.page.identifier = '${productId}';
+        };
+    `;
+
+    const disqusEmbed = `
+        (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://brand-connect.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    `;
+
+    disqusScript.textContent = disqusConfig + disqusEmbed;
+
+    const noscript = document.createElement('noscript');
+    noscript.innerHTML = 'Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>';
+
+    // Clean up previous Disqus instances if any
+    const oldScript = document.querySelector('script[src*="disqus.com"]');
+    if (oldScript) {
+        oldScript.remove();
     }
-    const reviewForm = document.createElement('review-form');
-    reviewsContainer.appendChild(reviewForm);
+    if (window.DISQUS) {
+         window.DISQUS.reset({
+             reload: true,
+             config: function () {
+                 this.page.url = window.location.href;
+                 this.page.identifier = productId;
+             }
+         });
+    } else {
+        appRoot.appendChild(title);
+        appRoot.appendChild(disqusContainer);
+        appRoot.appendChild(disqusScript);
+        appRoot.appendChild(noscript);
+    }
 }
 
 export function renderPartnershipForm() {
