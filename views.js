@@ -3,7 +3,16 @@ import { categories } from './categories.js';
 
 const appRoot = document.getElementById('app-root');
 
-// Function to render the list of categories
+// --- Data Accessor ---
+
+// Find a product by its ID
+export async function getProductById(id) {
+    return products.find(p => p.id === id);
+}
+
+// --- View Rendering ---
+
+// Render the list of categories
 export function renderCategories() {
     appRoot.innerHTML = `
         <section id="categories-section">
@@ -27,7 +36,7 @@ export function renderCategories() {
     });
 }
 
-// Function to render products, with optional filtering by category or search term
+// Render products, with optional filtering by category or search term
 export function renderProducts() {
     const params = new URLSearchParams(window.location.hash.split('?')[1] || '');
     const categoryId = params.get('category');
@@ -37,8 +46,9 @@ export function renderProducts() {
 
     if (categoryId) {
         filteredProducts = products.filter(p => p.categoryId === categoryId);
-    } else if (searchTerm) {
-        filteredProducts = products.filter(p => 
+    }
+    if (searchTerm) {
+        filteredProducts = filteredProducts.filter(p => 
             p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
             p.brand.toLowerCase().includes(searchTerm.toLowerCase())
         );
@@ -64,41 +74,27 @@ export function renderProducts() {
         productCard.setAttribute('name', product.name);
         productCard.setAttribute('image', product.imageUrl);
         productCard.setAttribute('price', product.price);
-        productCard.setAttribute('link', product.productUrl);
-        productCard.setAttribute('product-id', product.id);
+        // The `product-id` attribute is now used by main.js to trigger the modal
+        productCard.dataset.productId = product.id; 
         productGrid.appendChild(productCard);
     });
 }
 
-// Placeholder for review rendering
+// Deprecated: Kept for reference, but functionality is replaced by the modal.
 export function renderReviews() {
-    const params = new URLSearchParams(window.location.hash.split('?')[1] || '');
-    const productId = params.get('productId');
-    const product = products.find(p => p.id == productId);
-
-    if (product) {
-        appRoot.innerHTML = `
-            <section class="review-section">
-                <h2>${product.name} - 리뷰</h2>
-                <p>아직 작성된 리뷰가 없습니다.</p>
-                 <a href="#products?category=${product.categoryId}"> &larr; ${categories.find(c => c.id === product.categoryId).name}(으)로 돌아가기</a>
-            </section>
-        `;
-    } else {
-        appRoot.innerHTML = '<p>상품을 찾을 수 없습니다.</p>';
-    }
+    appRoot.innerHTML = '<p>리뷰 기능이 업데이트 되었습니다. 제품 상세 보기에서 확인하세요.</p>';
 }
 
-// Placeholder for partnership form
+// Render the partnership inquiry form
 export function renderPartnershipForm() {
     appRoot.innerHTML = `
         <section id="partnership-section" class="partnership-content">
             <h2>파트너가 되어주세요</h2>
             <p>네이버 브랜드 커넥트와 함께 브랜드를 성장시키고 새로운 고객과 만나보세요.</p>
-            <form id="partnership-form" class="partnership-form">
-                <input type="text" id="partner-name" name="name" placeholder="이름" required>
-                <input type="email" id="partner-email" name="email" placeholder="이메일" required>
-                <textarea id="partner-message" name="message" rows="4" placeholder="문의 내용" required></textarea>
+            <form id="partnership-form" class="partnership-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+                <input type="text" name="name" placeholder="이름" required>
+                <input type="email" name="email" placeholder="이메일" required>
+                <textarea name="message" rows="4" placeholder="문의 내용" required></textarea>
                 <button type="submit" class="cta-button">문의하기</button>
             </form>
         </section>
