@@ -1,4 +1,5 @@
 import { products } from './products.js';
+import { categories } from './categories.js';
 
 // --- Web Components for Categories and Products ---
 class ProductCategory extends HTMLElement {
@@ -87,14 +88,27 @@ customElements.define('product-card', ProductCard);
 const appRoot = document.getElementById('app-root');
 
 export async function renderCategories() {
-    appRoot.innerHTML = '<p>Categories are not available at the moment.</p>';
+    appRoot.innerHTML = '';
+    categories.forEach(category => {
+        const el = document.createElement('product-category');
+        el.setAttribute('name', category.name);
+        el.setAttribute('image', category.imageUrl);
+        el.addEventListener('click', () => { window.location.hash = `#products?categoryId=${category.id}` });
+        appRoot.appendChild(el);
+    });
 }
 
 export async function renderProducts(searchTerm = '') {
     appRoot.innerHTML = '';
     let filteredProducts = products;
+    const categoryId = new URLSearchParams(window.location.hash.split('?')[1])?.get('categoryId');
+
+    if (categoryId) {
+        filteredProducts = products.filter(p => p.categoryId === categoryId);
+    }
+
     if (searchTerm) {
-        filteredProducts = products.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()));
+        filteredProducts = filteredProducts.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()));
     }
     filteredProducts.forEach(product => {
         const el = document.createElement('product-card');

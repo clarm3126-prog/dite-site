@@ -9,8 +9,8 @@ async function router() {
     // Show/hide sections based on the current path
     const isHomePage = path === '#categories' || path === '';
     heroSection.style.display = isHomePage ? 'block' : 'none';
-    popularProductsSection.style.display = isHomePage ? 'block' : 'none';
-    appRoot.style.display = isHomePage ? 'none' : (path === '#products' ? 'grid' : 'block');
+    popularProductsSection.style.display = 'none'; // Always hide popular products on initial load
+    appRoot.style.display = 'grid'; // Always show the app-root
 
     // Dynamic import for code splitting
     try {
@@ -33,13 +33,7 @@ async function router() {
         }
 
         if (renderFunction) {
-            if (isHomePage) {
-                // On the homepage, we only need to render categories in the background if needed,
-                // but the main view is the popular products, which is handled separately.
-                // We might pre-fetch or do other things here.
-            } else {
-                await renderFunction();
-            }
+            await renderFunction();
         }
     } catch (error) {
         console.error("Failed to load the view module", error);
@@ -134,23 +128,7 @@ class PopularProductCard extends HTMLElement {
 }
 customElements.define('popular-product-card', PopularProductCard);
 
-// --- Render Popular Products ---
-function renderPopularProducts() {
-    const popularProductsGrid = document.getElementById('popular-products-grid');
-    popularProductsGrid.innerHTML = '';
-    products.forEach(product => {
-        const productCard = document.createElement('popular-product-card');
-        productCard.setAttribute('product-id', product.id);
-        productCard.setAttribute('name', product.name);
-        productCard.setAttribute('image', product.imageUrl);
-        productCard.setAttribute('price', product.price);
-        productCard.setAttribute('link', product.productUrl);
-        popularProductsGrid.appendChild(productCard);
-    });
-}
-
 // --- Initial Load ---
 document.addEventListener('DOMContentLoaded', () => {
-    renderPopularProducts();
     router(); 
 });
