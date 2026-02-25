@@ -63,7 +63,7 @@ export const products = [
         "name": "스마트 자동 센서 기저귀 쓰레기통 20L",
         "brand": "스마트센서",
         "price": "₩59,900",
-        "imageUrl": "https://images.unsplash.com/photo-1604195155319-3f064b59b5ae?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600",
+        "imageUrl": "https://shop-phinf.pstatic.net/20241219_80/1734590122961WUkrA_JPEG/25326234127008310_1637391150.jpg?type=m10000_10000_no_rotate",
         "productUrl": "https://naver.me/F8lxbIYq",
         "categoryId": "life-health",
         "description": "",
