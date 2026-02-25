@@ -1,36 +1,30 @@
 class PopularProductCard extends HTMLElement {
     constructor() {
         super();
-        // Shadow DOM을 초기화합니다.
         this.attachShadow({ mode: 'open' });
     }
 
     connectedCallback() {
-        // 컴포넌트가 DOM에 추가될 때 렌더링을 수행합니다.
         this.render();
     }
 
     static get observedAttributes() {
-        // 변경을 감지할 속성들을 반환합니다.
         return ['name', 'image', 'price', 'link', 'product-id'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        // 속성이 변경될 때마다 렌더링을 다시 수행합니다.
         if (oldValue !== newValue) {
             this.render();
         }
     }
 
     render() {
-        // 속성 값들을 가져옵니다.
         const name = this.getAttribute('name') || '상품명 없음';
         const image = this.getAttribute('image') || '';
         const price = this.getAttribute('price') || '가격 정보 없음';
         const link = this.getAttribute('link') || '#';
         const productId = this.getAttribute('product-id');
 
-        // Shadow DOM 내부의 HTML과 스타일을 설정합니다.
         this.shadowRoot.innerHTML = `
             <style>
                 .product-card {
@@ -42,11 +36,17 @@ class PopularProductCard extends HTMLElement {
                     transition: transform 0.2s, box-shadow 0.2s;
                     text-decoration: none;
                     color: inherit;
-                    display: block;
+                    display: flex; /* Use flexbox for layout */
+                    flex-direction: column; /* Stack items vertically */
+                    height: 100%; /* Ensure the card takes full height */
                 }
                 .product-card:hover {
                     transform: translateY(-5px);
                     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                }
+                .product-image-link {
+                    display: block;
+                    flex-grow: 1; /* Allow the image link to grow */
                 }
                 .product-card img {
                     width: 100%;
@@ -55,6 +55,7 @@ class PopularProductCard extends HTMLElement {
                 }
                 .product-info {
                     padding: 15px;
+                    flex-grow: 0; /* Don't allow info to grow */
                 }
                 .product-info h3 {
                     margin: 0 0 10px;
@@ -75,15 +76,31 @@ class PopularProductCard extends HTMLElement {
                     text-decoration: none;
                     font-size: 0.9rem;
                 }
+                
+                .no-image {
+                    width: 100%;
+                    height: 180px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: #f0f0f0;
+                    color: #aaa;
+                }
             </style>
-            <a href="${link}" class="product-card" target="_blank">
-                <img src="${image}" alt="${name}">
+            <div class="product-card" data-product-id="${productId}">
+                <a href="${link}" class="product-image-link" target="_blank">
+                    <img 
+                        src="${image}" 
+                        alt="${name}" 
+                        onerror="this.onerror=null; this.outerHTML='<div class=\\'no-image\\'>NO IMAGE</div>'"
+                    >
+                </a>
                 <div class="product-info">
                     <h3>${name}</h3>
                     <p>${price}</p>
                 </div>
-            </a>
-            <a href="#reviews?productId=${productId}" class="review-button">리뷰 보기</a>
+                <a href="#reviews?productId=${productId}" class="review-button">리뷰 보기</a>
+            </div>
         `;
     }
 }
