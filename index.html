@@ -14,43 +14,49 @@
 <body>
     <header>
         <h1>네이버 브랜드 커넥트</h1>
+        <nav>
+            <a href="#categories">카테고리</a>
+            <a href="#partnership">파트너십 문의</a>
+        </nav>
         <div class="search-container">
             <input type="text" id="search-bar" placeholder="제품 검색...">
         </div>
     </header>
+
     <section id="hero-section">
         <div class="hero-content">
             <h2>당신의 다음 최애 브랜드를 만나보세요</h2>
             <p>네이버 최고의 커넥티드 브랜드에서 엄선된 혁신적인 제품들을 만나보세요.</p>
-            <a href="#products" class="cta-button">바로 쇼핑하기</a>
         </div>
     </section>
-    <nav>
-        <a href="#categories" id="nav-categories">카테고리</a>
-        <a href="#products" id="nav-products">제품</a>
-        <a href="#reviews" id="nav-reviews">리뷰</a>
-        <a href="https://naver.me/F8lxbIYq" target="_blank" id="nav-affiliate">네이버에서 쇼핑하기</a>
-    </nav>
+
+    <!-- App root where dynamic content will be rendered -->
+    <main id="app-root" class="app-root"></main>
+
     <section id="popular-products-section">
         <h2>인기 상품</h2>
-        <div id="popular-products-grid" class="grid-container"></div>
+        <div id="popular-products" class="popular-products">
+            <!-- Popular products will be injected here by main.js -->
+        </div>
     </section>
-    <main id="app-root"></main>
-    <section id="partnership-inquiry">
-        <div class="partnership-form-container">
-            <h2>제휴 문의</h2>
-            <p>네이버 브랜드 커넥트와 함께할 브랜드를 기다립니다.</p>
-            <form id="partnership-form">
-                <input type="text" id="partner-name" name="name" placeholder="귀하의 이름" required>
-                <input type="email" id="partner-email" name="email" placeholder="이메일 주소" required>
+
+    <section id="partnership-section">
+        <div class="partnership-content">
+            <h2>파트너가 되어주세요</h2>
+            <p>네이버 브랜드 커넥트와 함께 브랜드를 성장시키고 새로운 고객과 만나보세요.</p>
+            <form id="partnership-form" class="partnership-form">
+                <input type="text" id="partner-name" name="name" placeholder="이름" required>
+                <input type="email" id="partner-email" name="email" placeholder="이메일" required>
                 <textarea id="partner-message" name="message" rows="4" placeholder="문의 내용" required></textarea>
                 <button type="submit" class="cta-button">문의하기</button>
             </form>
         </div>
     </section>
+
     <footer>
         <p>&copy; 2024 네이버 브랜드 커넥트</p>
     </footer>
+
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script type="module" src="firebase.js"></script>
