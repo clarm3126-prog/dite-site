@@ -74,7 +74,7 @@ export function renderProducts() {
         productCard.setAttribute('name', product.name);
         productCard.setAttribute('image', product.imageUrl);
         productCard.setAttribute('price', product.price);
-        // The `product-id` attribute is now used by main.js to trigger the modal
+        productCard.setAttribute('link', product.productUrl);
         productCard.dataset.productId = product.id; 
         productGrid.appendChild(productCard);
     });
