@@ -48,7 +48,7 @@ export const products = [
         "name": "가그린 제로 블라스트 750ml x 3개",
         "brand": "가그린",
         "price": "₩15,900",
-        "imageUrl": "https://i.ibb.co/3sw0g0z/BEST.png",
+        "imageUrl": "https://shop-phinf.pstatic.net/20240819_254/1724024784632UP0ok_JPEG/41718863446322153_1048428592.jpg?type=m1000_pd",
         "productUrl": "https://naver.me/G7NQZ430",
         "categoryId": "life-health",
         "description": "제로 알코올과 제로 색소로 만들어져 순하고 상쾌한 가글입니다. 불소 코팅으로 충치 예방은 물론, 입냄새 제거와 구강 정화 효과까지 한 번에 해결하세요. 온 가족이 안심하고 사용할 수 있는 제품입니다.",
