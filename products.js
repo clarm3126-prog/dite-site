@@ -40,7 +40,7 @@ export const products = [
         "name": "오쏘몰 이뮨 멀티비타민",
         "brand": "오쏘몰",
         "price": "₩38,000",
-        "imageUrl": "https://images.unsplash.com/photo-1607619056574-7d8d3ee536b2?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600",
+        "imageUrl": "https://thumbnail.alicdn.com/mc/28243469415/20240709140905/3.2.1.2_160_160_Q100.jpg",
         "productUrl": "https://naver.me/G7NQZ430",
         "categoryId": "life-health"
     },
@@ -49,7 +49,7 @@ export const products = [
         "name": "[리뉴얼] 뉴트리코어 WCS 락토페린",
         "brand": "뉴트리코어",
         "price": "₩49,900",
-        "imageUrl": "https://images.unsplash.com/photo-1567427018141-0b86a6850fff?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600",
+        "imageUrl": "https://thumbnail.alicdn.com/mc/28243469415/20240709140905/3.2.1.1_160_160_Q100.jpg",
         "productUrl": "https://naver.me/F8lxbIYq",
         "categoryId": "life-health"
     }
